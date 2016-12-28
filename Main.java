@@ -98,15 +98,24 @@ public class Main extends Application {
                 });
             }
         });
-        circle.setOnMouse(new EventHandler<MouseEvent>() {
+        circle.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                    Line line = new Line();
-                    line.setStartX(circle.getLayoutX());
-                    line.setStartY(circle.getLayoutY());
-                    line.setEndX(event.getSceneX());
-                    line.setEndY(event.getSceneY());
-                    root.getChildren().add(line);
+                Line line = new Line();
+                line.setStartX(circle.getCenterX());
+                line.setStartY(circle.getCenterY());
+                line.setEndX(circle.getCenterX());
+                line.setEndY(circle.getCenterY());
+                root.getChildren().add(line);
+
+
+                circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        line.setEndX(event.getSceneX());
+                        line.setEndY(event.getSceneY());
+                    }
+                });
             }
         });
     }
